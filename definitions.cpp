@@ -19,4 +19,4 @@ ControllerButton indexIn(ControllerDigital::L1);
 ControllerButton intakeIn(ControllerDigital::R1);
 ControllerButton intakeOut(ControllerDigital::R2);
 
-ControllerButton turntester(ControllerDigital::A);
+ControllerButton autontester(ControllerDigital::A);
