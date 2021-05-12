@@ -20,7 +20,7 @@ std::shared_ptr<ChassisController> chassis =
 std::shared_ptr<AsyncMotionProfileController> profileController =
     AsyncMotionProfileControllerBuilder()
       .withLimits({
-        1.0, //Maximum linear velocity in m/s
+        2.0, //Maximum linear velocity in m/s
         2.0, //Maximum linear acceleration in m/s/s
         10.0 //Maximum linear jerk in m/s/s/s
       })
@@ -32,6 +32,7 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+	inertialSensor.reset();
 }
 
 void disabled() {}
@@ -39,41 +40,112 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous() {
-	frontRight.setBrakeMode(AbstractMotor::brakeMode::brake);
-	 frontLeft.setBrakeMode(AbstractMotor::brakeMode::brake);
-	 backRight.setBrakeMode(AbstractMotor::brakeMode::brake);
-	 backLeft.setBrakeMode(AbstractMotor::brakeMode::brake);
-	//  inertialSensor.reset();
-	//  pros::delay(3000);
+	brake('h');
+	turnOver(50, 'r', 180);
 	// turn(300, 'r', 180);
-	// pros::delay(1000);
-	// overshoot('r', 180);
+	
+	// brake('h');
 
-	profileController->generatePath(
-       {{0_ft, 0_ft, 0_deg}, {2_ft, 0_ft, 0_deg}}, "moveOne");
-     profileController->setTarget("moveOne");
-     profileController->waitUntilSettled();
+	//  intakeLeft.moveVelocity(300);
+	//  intakeRight.moveVelocity(300);
+	//  pros::delay(500);
+	//  intakeLeft.moveVelocity(0);
+	//  intakeRight.moveVelocity(0);
+
+	//  profileController->generatePath(
+    // 	{{0_ft, 0_ft, 0_deg}, {3_ft, 0_ft, 0_deg}}, "moveOne");
+    //  profileController->setTarget("moveOne");
+    //  profileController->waitUntilSettled();
+
+	//  turn(300, 'r', 67);
+
+	//  intakeLeft.moveVelocity(600);
+	//  intakeRight.moveVelocity(600);
+	//  indexBottom.moveVelocity(600);
+	//  indexTopTwo.moveVelocity(600);
+
+	//  profileController->generatePath(
+    // 	{{0_ft, 0_ft, 0_deg}, {1.4_ft, 0_ft, 0_deg}}, "moveTwo");
+    //  profileController->setTarget("moveTwo");
+	// 	pros::delay(900);
+	// 	intakeLeft.moveVelocity(0);
+	// 	intakeRight.moveVelocity(0);
+    //  profileController->waitUntilSettled();
+
+	//  pros::delay(750);
+
+	//  brake('b');
+
+	//  indexBottom.moveVelocity(0);
+	//  indexTopTwo.moveVelocity(0);
+	//  intakeLeft.moveVelocity(-600);
+	//  intakeRight.moveVelocity(-600);
+
+	//  profileController->generatePath(
+	// 	{{0_ft, 0_ft, 0_deg}, {2_ft, 0_ft, 0_deg}}, "backOne");
+	//  profileController->setTarget("backOne", true);
+	//  profileController->waitUntilSettled();
+
+	//  intakeLeft.moveVelocity(0);
+	//  intakeRight.moveVelocity(0);
+
+	//  brake('h');
+	
+	//  turn(300, 'r', 188);
+	// //  turnOver(300, 'r', 190);
+
+	//  brake('b');
+
+	//  profileController->generatePath(
+   	// 	 {{0_ft, 0_ft, 0_deg}, {8_ft, 0_ft, 0_deg}}, "moveThree");
+	//  profileController->setTarget("moveThree");
+	//  profileController->waitUntilSettled();
+	
+	//  turn(300, 'l', 135);
+
+	//  profileController->generatePath(
+    // 	{{0_ft, 0_ft, 0_deg}, {2.5_ft, 0_ft, 0_deg}}, "movefour");
+    //  profileController->setTarget("movefour");
+	//  	pros::delay(1100);
+	//  	intakeLeft.moveVelocity(600);
+	//  	intakeRight.moveVelocity(600);
+    //  profileController->waitUntilSettled();
+	 
+	//  pros::delay(750);
+	 
+	//  indexBottom.moveVelocity(0);
+	//  indexTopTwo.moveVelocity(0);
+	//  intakeLeft.moveVelocity(-600);
+	//  intakeRight.moveVelocity(-600);
+	 
+	//  profileController->generatePath(
+    // 	{{0_ft, 0_ft, 0_deg}, {2_ft, 0_ft, 0_deg}}, "movefour");
+    //  profileController->setTarget("movefour", true);
+    //  profileController->waitUntilSettled();
+
+	//  intakeLeft.moveVelocity(0);
+	//  intakeRight.moveVelocity(0);
 }
 
 void opcontrol() {
 
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+	 pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
+		             (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
+		             (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
 
 	 frontRight.setBrakeMode(AbstractMotor::brakeMode::coast);
-		frontLeft.setBrakeMode(AbstractMotor::brakeMode::coast);
-		backRight.setBrakeMode(AbstractMotor::brakeMode::coast);
-		backLeft.setBrakeMode(AbstractMotor::brakeMode::coast);
+	 frontLeft.setBrakeMode(AbstractMotor::brakeMode::coast);
+	 backRight.setBrakeMode(AbstractMotor::brakeMode::coast);
+	 backLeft.setBrakeMode(AbstractMotor::brakeMode::coast);
 
-		chassis->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY),
-								 								controller.getAnalog(ControllerAnalog::rightX));
+	 chassis->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY),
+								 controller.getAnalog(ControllerAnalog::rightX));
 
-	intake();
-	index();
-	turnTest();
+	 intake();
+	 index();
+	 autontest();
 
-		pros::delay(20);
+	 pros::delay(20);
 	}
 }
