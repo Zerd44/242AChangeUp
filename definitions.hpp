@@ -1,4 +1,3 @@
-#include "main.h"
 #include "okapi/api.hpp"
 using namespace okapi;
 
@@ -21,4 +20,4 @@ extern ControllerButton indexIn;
 extern ControllerButton intakeIn;
 extern ControllerButton intakeOut;
 
-extern ControllerButton turntester;
+extern ControllerButton autontester;
