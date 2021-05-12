@@ -1,12 +1,15 @@
-#include "main.h"
 #include "okapi/api.hpp"
 using namespace okapi;
 
 // extern void master();
 
+extern int overCount;
+
 extern void intake();
 extern void index();
 
-extern void turn(int speed, char direction, int deg);
-extern void turnTest();
-extern void overshoot(char direction, int deg);
+extern void turn(int speed, char direction, double deg);
+extern void turnOver(int speed, char direction, double deg);
+extern void brake(char braketype);
+
+extern void autontest();
